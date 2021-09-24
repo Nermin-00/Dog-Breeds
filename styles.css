@@ -1,0 +1,27 @@
+#map {
+    height: 800px;
+    width: 88%;
+    margin-left: 5em;
+    border-radius: 74px 25px 74px 74px;
+    box-shadow: -6px 28px 30px 15px rgba(0,0,0,0.75);
+  }
+
+#heading{
+  background-color: rgb(255, 145, 0);
+  border-radius: 2em;
+  box-shadow: 15px 15px 15px 11px rgba(0,0,0,0.75);
+  
+}
+
+#paw {
+  padding-bottom: 1em;
+  position: relative;
+  left: 34em;
+  top: 2em;
+}
+
+body {
+  font-family: Garamond, serif;
+  
+  background-color: rgb(0, 37, 41);
+}

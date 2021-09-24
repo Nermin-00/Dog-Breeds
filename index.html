@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My Google Map</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div id=main>
+    <div id="heading">
+      <div id="paw">
+        <img src="images/dogpaw.png">
+        <img src="images/dogpaw.png">
+        <img src="images/dogpaw.png">
+        <img src="images/dogpaw.png">
+      </div>
+    <h1 style="text-align: center;">European Dog Breeds Interactive Map</h1>
+    </div>
+    <div id="map"></div>
+  </div>
+  <script>
+    function initMap() {
+      // Map options
+      var options = {
+        zoom: 5,
+        center: { lat: 43.856430, lng: 18.413029 }
+      }
+
+      // New map
+      var map = new google.maps.Map(document.getElementById('map'), options);
+
+      // Array of markers
+      var markers = [
+        {
+          coords: { lat: 44.787197, lng: 20.457273 },
+          iconImage: 'images/serbian hound.png',
+          content: '<h1>Serbian Hound</h1> <h3>Country of Origin: Serbia<h3> <h3>Breed Type: Hound</h3> <h3><a href="https://en.wikipedia.org/wiki/Serbian_Hound">Serbian Hound Wiki</a></h3>'
+        },
+        {
+          coords: { lat: 42.442574, lng: 19.268646 },
+          iconImage: 'images/montenegri mount hound.png',
+          content: '<h1>Montenegrin Mountain Hound</h1> <h3>Country of Origin: Montenegro<h3> <h3>Breed Type: Hound</h3> <h3><a href="https://en.wikipedia.org/wiki/Montenegrin_Mountain_Hound">Montenegrin Hound Wiki</a></h3>'
+        },
+        {
+          coords: { lat: 41.6086, lng: 21.7453 },
+          iconImage: 'images/sarp.png',
+          content: '<h1>Šarplaninac</h1> <h3>Country of Origin: Macedonia <h3> <h3>Breed Type: Livestock Guardian</h3> <h3><a href="https://en.wikipedia.org/wiki/%C5%A0arplaninac">Sarplaninac Wiki</a></h3>'
+        },
+
+        {
+          coords: { lat: 41.902782, lng: 12.496366 },
+          iconImage: 'images/canecorso.png',
+          content: '<h1>Cane Corso</h1> <h3>Country of Origin: Italy</h3> <h3>Breed Type:Guardian</h3> <h3><a href="https://en.wikipedia.org/wiki/Cane_Corso">Cane Corso Wiki</a></h3>'
+        },
+        {
+          coords: { lat: 48.864716, lng: 2.349014 },
+          iconImage: 'images/french bulldog.png',
+          content: '<h1>French Bulldog</h1> <h3>Country of Origin: France</h3> <h3>Breed Type: Companion</h3> <h3><a href="https://en.wikipedia.org/wiki/French_Bulldog">French Bulldog Wiki</a></h3>'
+        },
+
+        {
+          coords: { lat: 48.796045, lng: 9.009571 },
+          iconImage: 'images/leonberger.png',
+          content: '<h1>Leonberger</h1> <h3>Country of Origin: Germany</h3> <h3>Breed Type: Search & Rescue</h3> <h3><a href="https://en.wikipedia.org/wiki/Leonberger">Leonberger Wiki</a></h3>'
+        },
+
+        {
+          coords: { lat: 47.5162, lng: 14.5501 },
+          iconImage: 'images/alpine dach.png',
+          content: '<h1>Alpine Dachsbracke</h1> <h3>Country of Origin: Austria</h3> <h3>Breed Type: Scent Hound</h3> <h3><a href="https://en.wikipedia.org/wiki/Alpine_Dachsbracke">Alpine Dachsbracke Wiki</a></h3>'
+        },
+
+        {
+          coords: { lat: 53.500000, lng: 108.000000 },
+          iconImage: 'images/Samoyed.png',
+          content: '<h1>Samoyed</h1> <h3>Country of Origin: Siberia/Russia</h3> <h3>Breed Type: Herding</h3> <h3><a href="https://en.wikipedia.org/wiki/Samoyed_dog">Samoyed Wiki</a></h3>'
+        },
+
+        {
+          coords: {lat: 43.856430, lng: 18.413029},
+          iconImage: 'images/tornjak.png',
+          content: '<h1>Tornjak</h1> <h3>Country of Origin: Bosnia</h3> <h3>Breed Type: Herding</h3> <h3><a href="https://bs.wikipedia.org/wiki/Tornjak">Tornjak Wiki</a></h3>'
+        },
+
+        
+        {
+          coords: {lat: 50.450001, lng: 30.523333},
+          iconImage: 'images/chortai.png',
+          content: '<h1>Chortai</h1> <h3>Country of Origin:Ukraine</h3> <h3>Breed Type: Sight hound</h3> <h3><a href="https://en.wikipedia.org/wiki/Chortai">Chortai Wiki</a></h3>'
+        },
+
+        {
+          coords: {lat:  51.9194, lng:  19.1451,},
+          iconImage: 'images/polish hound.png',
+          content: '<h1>Polish hound</h1> <h3>Country of Origin: Poland</h3> <h3>Breed Type: Scent hound</h3> <h3><a href="https://en.wikipedia.org/wiki/Polish_Hound">Polish HOund Wiki</a></h3>'
+        },
+
+
+
+      ];
+
+      // Loop through markers
+      for (var i = 0; i < markers.length; i++) {
+        // Add marker
+        addMarker(markers[i]);
+      }
+
+      // Add Marker Function
+      function addMarker(props) {
+        var marker = new google.maps.Marker({
+          position: props.coords,
+          map: map,
+          //icon:props.iconImage
+        });
+
+        // Check for customicon
+        if (props.iconImage) {
+          // Set icon image
+          marker.setIcon(props.iconImage);
+        }
+
+        // Check content
+        if (props.content) {
+          var infoWindow = new google.maps.InfoWindow({
+            content: props.content
+          });
+
+          marker.addListener('click', function () {
+            infoWindow.open(map, marker);
+          });
+        }
+      }
+    }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaqwrAV3L4XqPsP7x0UBosgv1vbOPSUic&callback=initMap">
+    </script>
+</body>
+
+</html>
